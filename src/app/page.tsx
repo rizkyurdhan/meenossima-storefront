@@ -1,66 +1,48 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
+import buttonStyles from "@/components/ui/Button/Button.module.css";
+import { Button } from "@/components/ui/Button/Button";
+import { ProductCard } from "@/components/product/ProductCard/ProductCard";
+import { getFeaturedProducts } from "@/data/mockData";
 
 export default function Home() {
+  const featuredProducts = getFeaturedProducts();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <>
+      <section className={styles.hero}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="https://images.unsplash.com/photo-1593111160232-b7112c81e7e3?auto=format&fit=crop&q=80&w=2000"
+          alt="Meenossima Collection"
+          fill
           priority
+          className={styles.heroImage}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>The Art of Being</h1>
+          <p className={styles.heroSubtitle}>
+            Curated essentials for a deliberate lifestyle. Thoughtfully designed, ethically crafted.
           </p>
+          <Link href="/products" className={`${buttonStyles.button} ${buttonStyles.primary} ${buttonStyles.lg}`}>
+            Shop the Collection
+          </Link>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Featured Arrivals</h2>
+          <Link href="/products" className={styles.viewAll}>
+            View All
+          </Link>
         </div>
-      </main>
-    </div>
+        <div className={styles.grid}>
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} {...product} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
