@@ -1,0 +1,15 @@
+services:
+  storefront:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: meenossima-storefront
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    # Add your env vars here in Phase 2 when ERPNext is connected:
+    # - ERPNEXT_URL=https://erp.andalassistem.com
+    # - ERPNEXT_API_KEY=your_key_here
+    # - ERPNEXT_API_SECRET=your_secret_here
